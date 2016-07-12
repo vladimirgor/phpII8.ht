@@ -11,7 +11,8 @@ class M_Mysql  {
 		// Language setting.
     	setlocale(LC_ALL, 'ru_RU.UTF-8'); // Устанавливаем нужную локаль (для дат, денег, запятых и пр.)
     	mb_internal_encoding('UTF-8'); // Устанавливаем кодировку строк
-		//ToDO
+		// Открытие сессии.
+		session_start();	
 	}
 
 	public static function GetInstance(){

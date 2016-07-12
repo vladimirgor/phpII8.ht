@@ -9,8 +9,7 @@ class C_Auth extends C_Base
 
 // Менеджеры.
 
-        $mUsers = M_Users::Instance();// connection to DB
-        // by calling M_Mysql::GetInstance in the __construct M_Users
+        $mUsers = M_Users::Instance();
 
 // Очистка старых сессий.
         $mUsers->ClearSessions();

@@ -11,8 +11,8 @@ class C_Article extends C_Base {
 
 // selecting all records from the data base
         $articles = M_Data::articles_all();
-        $mUsers = M_Users::Instance();// connection to DB
-        // by calling M_Mysql::GetInstance in the __construct M_Users
+        
+        $mUsers = M_Users::Instance();
 
         $user = $mUsers->Get();
 
@@ -29,9 +29,12 @@ class C_Article extends C_Base {
          else $id_article = $this->params['id'];
 // selecting one record from the data base
         $article = M_Data::articles_get($id_article);
+// views + 1        
         $article[0]['views']++;
+//  change record in data base with views + 1        
         M_Data::articles_edit($article[0]['id_article'], $article[0]['title'],
          $article[0]['content'],$article[0]['views']);
+// article content show        
         $this->content = $this->Template('theme/view.php',
           ['title'=>$article[0]['title'],'content'=> $article[0]['content']]);
     }
@@ -39,8 +42,7 @@ class C_Article extends C_Base {
 // article Edit 
     protected  function Action_edit (){
         $this->title .= "::Edit";
-        $mUsers = M_Users::Instance();// connection to DB
-        // by calling M_Mysql::GetInstance in the __construct M_Users
+        $mUsers = M_Users::Instance();
 
         $user = $mUsers->Get();
         
@@ -75,12 +77,9 @@ class C_Article extends C_Base {
 // article Delete 
     protected  function Action_delete (){
         $this->title .= "::Delete";
-         $mUsers = M_Users::Instance();// connection to DB
-        // by calling M_Mysql::GetInstance in the __construct M_Users
-
+        $mUsers = M_Users::Instance();
 
         $user = $mUsers->Get();
-        if ( $user == null ) header('Location: /article/Show_all/Delete');
 // Is it allowed to user to delete articles?
         if ( $user == null || !$mUsers->Can('DELETE_ARTICLE',$user['id_role']) )
             {
@@ -100,11 +99,9 @@ class C_Article extends C_Base {
 // article Add
     protected  function Action_add (){
         $this->title .= "::Add";
-        $mUsers = M_Users::Instance();// connection to DB
-        // by calling M_Mysql::GetInstance in the __construct M_Users
+        $mUsers = M_Users::Instance();
 
         $user = $mUsers->Get();
-         if ( $user == null ) header('Location: /article/Show_all/Add');
         // Может ли пользователь добавлять статьи?
         if ( $user == null || !$mUsers->Can('ADD_ARTICLE',$user['id_role']))
         {
@@ -131,8 +128,7 @@ class C_Article extends C_Base {
 // article Comment
     protected  function Action_Comment (){
         $this->title .= "::Comment";
-        $mUsers = M_Users::Instance();// connection to DB
-        // by calling M_Mysql::GetInstance in the __construct M_Users
+        $mUsers = M_Users::Instance();
 
         $user = $mUsers->Get();
         $id_article = $this->params['id'];
